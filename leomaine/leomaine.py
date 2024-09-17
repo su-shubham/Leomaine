@@ -1,7 +1,4 @@
-from .backend.backend import State
 from .views.navbar import navbar
-from .views.table import main_table
-from .views.stats import stats_ui
 from .views.manage import manage_ui
 import reflex as rx
 
@@ -25,23 +22,11 @@ def index() -> rx.Component:
         rx.tabs.root(
             rx.tabs.list(
                 _tabs_trigger("API", "waypoints", value="manage"),
-                _tabs_trigger("Table", "table-2", value="table"),
-                _tabs_trigger("Stats", "bar-chart-3", value="stats"),
             ),
             rx.tabs.content(
                 manage_ui(),
                 margin_top="1em",
                 value="manage",
-            ),
-            rx.tabs.content(
-                main_table(),
-                margin_top="1em",
-                value="table",
-            ),
-            rx.tabs.content(
-                stats_ui(),
-                margin_top="1em",
-                value="stats",
             ),
             default_value="manage",
             width="100%",
@@ -71,7 +56,6 @@ app = rx.App(
 )
 app.add_page(
     index,
-    on_load=State.load_entries,
     title="Leomaine",
     description="True AI generated API management.",
 )

@@ -7,7 +7,7 @@ def navbar():
             rx.image(src="/lemon.svg", height="38px"),
             rx.heading("Leomaine", size="7"),
             rx.badge(
-                "0.1.0",
+                "0.0.1",
                 radius="full",
                 align="center",
                 color_scheme="orange",

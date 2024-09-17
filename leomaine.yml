@@ -1,0 +1,49 @@
+config:
+  auth:
+    aws_access_key_id: null
+    aws_secret_access_key: null
+    azure_client_id: null
+    azure_client_secret: null
+    azure_tenant_id: null
+    azure_use_managed_identity: false
+    gcp_service_account_json: null
+    gcp_use_service_account: false
+    header_name: null
+    header_value: null
+    param_location: null
+    param_name: null
+    param_value: null
+  logging:
+    log_payloads: false
+    log_statistics: true
+  model:
+    name: Mistral
+    options:
+      anthropic_version: null
+      azure_api_version: '2023-05-15'
+      azure_deployment_id: null
+      azure_instance: null
+      bedrock: null
+      gemini: null
+      input_cost: null
+      llama2_format: null
+      max_tokens: 100000
+      mistral_format: ollama
+      output_cost: null
+      temperature: 1
+      top_k: null
+      top_p: null
+      upstream_path: null
+      upstream_url: http://127.0.0.1:11434/
+    provider: mistral
+  response_streaming: allow
+  route_type: llm/v1/chat
+enabled: true
+id: 34d20618-1388-4375-be40-8aeaefedb2d6
+instance_name: Mistral-Nemo
+name: ai-proxy
+protocols:
+  - grpc
+  - grpcs
+  - http
+  - https

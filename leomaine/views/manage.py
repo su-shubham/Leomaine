@@ -1,7 +1,7 @@
 import reflex as rx
 from leomaine.queries import QueryState, QueryAPI, BaseState
 from typing import Optional
-from leomaine.views import chat
+from leomaine.components.query_output import render_output
 
 
 # Helper for the title or head of sections
@@ -41,8 +41,8 @@ def form_entry(data: dict[str, list[str, str]]):
         )
 
     return rx.hstack(
-        create_entry("key", lambda key: QueryState.update_keys(key, data)),
-        create_entry("value", lambda value: QueryState.update_values(value, data)),
+        create_entry("key", lambda key: QueryState.update_keyy(key, data)),
+        create_entry("value", lambda value: QueryState.update_value(value, data)),
         rx.button(
             "DEL",
             on_click=lambda: QueryState.remove_entry(),
@@ -83,7 +83,7 @@ def form_body_param_item(
         header="Body",  # Title for the body section
         content=rx.box(
             rx.match(
-                QueryState.current_req_method,  # Matching the current request method (GET/POST)
+                QueryState.req_methods,  # Matching the current request method (GET/POST)
                 (
                     "GET",
                     rx.select(
@@ -143,8 +143,8 @@ def render_query_form():
     return rx.vstack(
         form_item(QueryState.headers, form_entry, QueryState.add_header),
         form_body_param_item(QueryState.body, form_entry, QueryState.add_body),
-        form_item(QueryState.cookies, form_entry, QueryState.add_cookie),
-        width="100%",  # Set full width for a better layout
+        form_item(QueryState.cookies, form_entry, QueryState.add_cookies),
+        width="100%",  # Set full width for a better layouts
         spacing="2",
         padding="0em 0.75em",
     )
@@ -193,7 +193,9 @@ def render_expandable_section():
         rx.accordion.root(
             form_item("Headers", QueryState.headers, form_entry, QueryState.add_header),
             form_body_param_item(QueryState.body, form_entry, QueryState.add_body),
-            form_item("Cookies", QueryState.cookies, form_entry, QueryState.add_cookie),
+            form_item(
+                "Cookies", QueryState.cookies, form_entry, QueryState.add_cookies
+            ),
             collapsible=True,
             variant="surface",
             width="100%",
@@ -207,7 +209,7 @@ def manage_ui():
     return rx.vstack(
         render_query_header(),
         render_expandable_section(),
-        chat.chat_bot_ui(),
+        render_output(),
         width="100%",
         padding_bottom="0.75em",
         border_radius="10px",
